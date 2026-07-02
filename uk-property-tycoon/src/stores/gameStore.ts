@@ -1,20 +1,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { 
+import type { 
   GameState, 
   Player, 
   Property, 
   Tenant, 
-  Mortgage, 
-  Finances, 
-  BankAccount, 
   Loan,
   Transaction,
-  TaxLiability,
   GameSettings,
   MarketProperty,
   Renovation,
-  TenantConcern,
   Alert,
   EPCRating
 } from '../types';
@@ -423,7 +418,7 @@ export const useGameStore = create<GameStore>()(
       },
 
       // Market
-      refreshMarket: () => set((state) => {
+      refreshMarket: () => set(() => {
         // Generate random market properties
         const addresses = [
           '123 High Street, London',
@@ -440,7 +435,7 @@ export const useGameStore = create<GameStore>()(
         const epcRatings: EPCRating[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
         const sources: Array<'estateAgent' | 'auction'> = ['estateAgent', 'auction'];
         
-        const newMarketProperties: MarketProperty[] = Array.from({ length: 5 }, (_, i) => {
+        const newMarketProperties: MarketProperty[] = Array.from({ length: 5 }, () => {
           const condition = conditions[Math.floor(Math.random() * conditions.length)];
           const price = Math.floor(Math.random() * 30000000) + 10000000; // £100k-£400k
           
